@@ -1,0 +1,16 @@
+<p>question-list works!</p>
+<div class="outer">
+    <div 
+        class="item"
+        *ngFor="let item of arr" 
+        (mouseenter)="selectedItem(item)"
+        [class.selected]="item === selectedHoveredItem"
+        (click)="emitChosenExercise(item)"
+        [class.selectedClickedItem]="item === selectedClickedItem" 
+        >
+        {{item.quetionText}}
+    </div>
+</div>
+    <!-- <app-big-question [chosenItemToDisplayLarge]="chosenItemToDisplayLarge"></app-big-question> -->
+    <app-big-question [chosenItemToDisplayLarge]="chosenItemToDisplayLarge"></app-big-question>
+

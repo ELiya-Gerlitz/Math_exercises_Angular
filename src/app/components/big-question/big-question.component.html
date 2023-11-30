@@ -1,0 +1,10 @@
+<div class="bigQuestionDiv">
+    <p>big-question works!</p>
+    <p class="exerciseLarge" *ngIf="chosenItemToDisplayLarge">{{chosenItemToDisplayLarge.quetionText}}</p>
+
+
+    <div class="optionsDiv">
+        <app-options *ngIf="chosenItemToDisplayLarge.quetionText" [chosenItemToDisplayLarge]="chosenItemToDisplayLarge"></app-options>
+    </div>
+</div>
+
