@@ -11,33 +11,38 @@ export class QuestionListComponent implements OnInit{
   public arr: QuestionModel[]
   public selectedHoveredItem : QuestionModel // needs to be different from selectedHoveredItem !== selectedClickedItem because of the UI 
   public selectedClickedItem : QuestionModel // needs to be different from selectedHoveredItem !== selectedClickedItem because of the UI 
-  public chosenItemToDisplayLarge : QuestionModel={
+  ={
     id: 0,
     quetionText: '',
     correctAnswer: 0,
     options: [],
     studentsAnswers: 0
   } 
+  public correctAnswer : number | string = "?"
 
   public constructor(private allQuestionsService: AllQuestionsService){
 }
   ngOnInit(): void {
     this.allQuestionsService.questionsArr$.subscribe(arr=>{
       this.arr = arr
+      this.allQuestionsService.correctAnswer$.subscribe(a =>{
+        this.correctAnswer = a
+      })
+      
     })
-    this.allQuestionsService.click_singleBTN()
+    this.allQuestionsService.initialArrEmitter()
+    this.allQuestionsService.returnCorrectAnswer("?")
+    
   }
-
+  
   public selectedItem(item : QuestionModel){
     this.selectedHoveredItem = item
   }
-
+  
   public emitChosenExercise( item: QuestionModel ) {
-      console.log(item, "I am the emitted" )
-      this.chosenItemToDisplayLarge = item
-      this.chosenItemToDisplayLarge.quetionText = item.quetionText 
+      this.allQuestionsService.click_singleBTN()
       this.selectedClickedItem = item
+      this.selectedClickedItem.quetionText = item.quetionText 
   }
-   
-
+    
 }

@@ -1,2 +1,10 @@
-<p>options works!</p>
-<div class="optionDiv">{{chosenItemToDisplayLarge.options[1]}}</div>
+<div class="flexContainerOptions">
+    <button class="item" *ngFor="let option of selectedClickedItem.options" 
+    (click)="clickedAnswer(option)"
+    [class.selectedClickedItem]="option === clickedOption"
+    [disabled]="optionsDisabled"
+    [class.disabled]="optionsDisabled"
+    >
+        {{option}}
+    </button>
+</div>

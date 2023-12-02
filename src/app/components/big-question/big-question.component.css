@@ -1,5 +1,6 @@
 .bigQuestionDiv{
-    border: 1px solid maroon;
+    border: 3px solid rgb(150, 197, 201);
+    background-image: linear-gradient(rgb(150, 197, 201), rgb(210, 210, 236));
     border-radius: 7px;
     width: 50%;
     height: 350px;
@@ -11,6 +12,7 @@
 }
 .exerciseLarge{
     font-size: 60px;
+    margin-bottom: 30px;
 }
 .optionsDiv{
     display: block;

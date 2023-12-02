@@ -1,10 +1,9 @@
 <div class="bigQuestionDiv">
-    <p>big-question works!</p>
-    <p class="exerciseLarge" *ngIf="chosenItemToDisplayLarge">{{chosenItemToDisplayLarge.quetionText}}</p>
-
-
+        <p>How much is</p>
+        <p class="exerciseLarge">{{selectedClickedItem.quetionText? selectedClickedItem.quetionText + " = " + correctAnswer : "choose a question"}} </p>
+        <div class="feedback" *ngIf="studentsAnswer>0">Your answer was: {{studentsAnswer}}</div>
     <div class="optionsDiv">
-        <app-options *ngIf="chosenItemToDisplayLarge.quetionText" [chosenItemToDisplayLarge]="chosenItemToDisplayLarge"></app-options>
+        <app-options *ngIf="selectedClickedItem.quetionText" [selectedClickedItem]="selectedClickedItem" (resultChosen)="emittedOption($event)"></app-options>
     </div>
 </div>
 

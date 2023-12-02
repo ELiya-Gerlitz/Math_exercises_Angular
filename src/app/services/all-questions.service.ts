@@ -7,6 +7,12 @@ import { Subject } from 'rxjs';
 })
 export class AllQuestionsService {
   private questionArraySubject = new Subject<QuestionModel[]>() //this is an emitter that can be an observable.
+  private correctAnswerSubject = new Subject<number|string>()
+  private ans : number | string = "?"
+
+  get correctAnswer$(){
+    return this.correctAnswerSubject.asObservable()
+  }
   
   get questionsArr$(){
     return this.questionArraySubject.asObservable()  // this function enables the observable to be private, yet accessible from other fcs.
@@ -21,10 +27,28 @@ export class AllQuestionsService {
     {id: 6, quetionText :  "12+1", correctAnswer: 13, studentsAnswers: 0, options: [10,6,8,13]}
   ]
 
-
 public click_singleBTN(){
+  this.ans = "?"
+  this.correctAnswerSubject.next(this.ans)
+}
+public initialArrEmitter(){
   this.questionArraySubject.next(this.questionsArray)
 }
 
-  constructor() { }
+public returnCorrectAnswer(questionId: number| string):string | number{
+  if(typeof questionId === 'number'){
+    const index=  this.questionsArray.findIndex(q => q.id === questionId)
+    console.log(index, "index")
+    const ans = this.questionsArray[index].correctAnswer
+    this.correctAnswerSubject.next(ans)
+    return ans
+  }else{
+    this.correctAnswerSubject.next("?")
+    console.log(`"I am in the service "string"`)
+    return "?"
+  }
+ 
+
+}
+
 }
