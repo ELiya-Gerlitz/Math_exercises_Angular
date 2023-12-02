@@ -1,7 +1,7 @@
 <div class="bigQuestionDiv">
         <p>How much is</p>
-        <p class="exerciseLarge">{{selectedClickedItem.quetionText? selectedClickedItem.quetionText + " = " + correctAnswer : "choose a question"}} </p>
-        <div class="feedback" *ngIf="studentsAnswer>0">Your answer was: {{studentsAnswer}}</div>
+        <p class="exerciseLarge">{{selectedClickedItem.quetionText? selectedClickedItem.quetionText + " = " + studentsAnswer : "choose a question"}} </p>
+        <div class="feedback" *ngIf="studentsAnswer>0">The correct answer is: {{correctAnswer}}</div>
     <div class="optionsDiv">
         <app-options *ngIf="selectedClickedItem.quetionText" [selectedClickedItem]="selectedClickedItem" (resultChosen)="emittedOption($event)"></app-options>
     </div>

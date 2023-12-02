@@ -8,7 +8,12 @@ import { Subject } from 'rxjs';
 export class AllQuestionsService {
   private questionArraySubject = new Subject<QuestionModel[]>() //this is an emitter that can be an observable.
   private correctAnswerSubject = new Subject<number|string>()
+  private studentsAnswerSubject = new Subject<number|string>()
+  private progressSubject = new Subject<number>()
+  private indexToDisableSubject = new Subject<{index1: number, correct: boolean}>()
   private ans : number | string = "?"
+  private progress : number = 0
+  public index : number
 
   get correctAnswer$(){
     return this.correctAnswerSubject.asObservable()
@@ -16,6 +21,15 @@ export class AllQuestionsService {
   
   get questionsArr$(){
     return this.questionArraySubject.asObservable()  // this function enables the observable to be private, yet accessible from other fcs.
+  }
+  get studentsAnswer$(){
+    return this.studentsAnswerSubject.asObservable()
+  }
+  get progress$(){
+    return this.progressSubject.asObservable()
+  }
+  get indexToDisable$(){
+    return this.indexToDisableSubject.asObservable()
   }
 
   private questionsArray: QuestionModel[] = [
@@ -30,25 +44,37 @@ export class AllQuestionsService {
 public click_singleBTN(){
   this.ans = "?"
   this.correctAnswerSubject.next(this.ans)
+  this.studentsAnswerSubject.next("?")
 }
 public initialArrEmitter(){
+  this.indexToDisableSubject.next({index1 : 1, correct: false})
   this.questionArraySubject.next(this.questionsArray)
 }
 
-public returnCorrectAnswer(questionId: number| string):string | number{
-  if(typeof questionId === 'number'){
-    const index=  this.questionsArray.findIndex(q => q.id === questionId)
-    console.log(index, "index")
-    const ans = this.questionsArray[index].correctAnswer
+public returnCorrectAnswer():string | number{
+    const ans = this.questionsArray[this.index].correctAnswer
     this.correctAnswerSubject.next(ans)
     return ans
-  }else{
-    this.correctAnswerSubject.next("?")
-    console.log(`"I am in the service "string"`)
-    return "?"
   }
- 
 
+private progressPercentCalculation():number{
+  return 100/this.questionsArray.length 
+}
+public findIndexOfOption(questionId : number){
+  this.index = this.questionsArray.findIndex(q => q.id === questionId)
+}
+
+public progresshandler(StudentsAnswer: number){
+  if(this.questionsArray[this.index].correctAnswer === StudentsAnswer){
+    this.progress = this.progress + this.progressPercentCalculation()
+    this.progressSubject.next(Math.trunc(this.progress))
+    console.log(this.index)
+    this.indexToDisableSubject.next({index1: this.index, correct: true}) // emit the index to disable
+
+  }else{
+    alert("incorrect answer!")
+    // console.log(this.progressPercentCalculation)
+  }
 }
 
 }

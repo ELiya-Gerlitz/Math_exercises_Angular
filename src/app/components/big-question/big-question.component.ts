@@ -10,7 +10,7 @@ import { AllQuestionsService } from 'src/app/services/all-questions.service';
 export class BigQuestionComponent implements OnInit{
   @Input() public selectedClickedItem :QuestionModel 
   public studentsAnswer: any = "?"
-  public correctAnswer : number |string
+  public correctAnswer : number |string = "?"
   
   public constructor(private exercisesService: AllQuestionsService){
     
@@ -19,11 +19,12 @@ export class BigQuestionComponent implements OnInit{
     this.exercisesService.correctAnswer$.subscribe(correct=>{
       this.correctAnswer = correct
     })
+    this.exercisesService.studentsAnswer$.subscribe(ssAns => {
+      this.studentsAnswer = ssAns
+    })
   }
   public emittedOption(chosenOption:number){
-    console.log(chosenOption, "in big from emitter")
     this.studentsAnswer = chosenOption
   }
   
-
 }

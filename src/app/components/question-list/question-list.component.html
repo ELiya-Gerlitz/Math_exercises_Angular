@@ -2,14 +2,17 @@
 <div class="outer">
     <button 
         class="item"
-        *ngFor="let item of arr" 
+        *ngFor="let item of arr; let i = index" 
         (mouseenter)="selectedItem(item)"
         [class.selected]="item === selectedHoveredItem"
         (click)="emitChosenExercise(item)"
         [class.selectedClickedItem]="item === selectedClickedItem" 
+        [disabled]="i === indexToDisable.index1"
+        [class.disabledCorrect]="i === indexToDisable.index1 && indexToDisable.correct === true"
         >
         {{item.quetionText}}
     </button>
+    <div>your grade so far is: {{progress}} %</div>
 </div>
-    <app-big-question [selectedClickedItem]="selectedClickedItem"></app-big-question>
+<app-big-question [selectedClickedItem]="selectedClickedItem"></app-big-question>
 

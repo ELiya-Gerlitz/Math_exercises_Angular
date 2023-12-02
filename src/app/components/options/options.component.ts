@@ -20,13 +20,12 @@ export class OptionsComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    console.log(this.selectedClickedItem.correctAnswer)
   }
   public clickedAnswer(option : number){
-    console.log(option)
     this.clickedOption = option
-    // this.correctAns = this.selectedClickedItem.correctAnswer
     this.SsAnswer = this.resultChosen.emit(option) // this is what the SS aswered
-    this.service.returnCorrectAnswer(this.selectedClickedItem.id) 
+    this.service.findIndexOfOption(this.selectedClickedItem.id)
+    this.service.returnCorrectAnswer() 
+    this.service.progresshandler(option)
   }
 }

@@ -19,6 +19,9 @@ export class QuestionListComponent implements OnInit{
     studentsAnswers: 0
   } 
   public correctAnswer : number | string = "?"
+  public progress : number = 0
+  public indexToDisable = {index1: -1, correct: false}
+  // public disabled = false
 
   public constructor(private allQuestionsService: AllQuestionsService){
 }
@@ -28,10 +31,14 @@ export class QuestionListComponent implements OnInit{
       this.allQuestionsService.correctAnswer$.subscribe(a =>{
         this.correctAnswer = a
       })
-      
     })
     this.allQuestionsService.initialArrEmitter()
-    this.allQuestionsService.returnCorrectAnswer("?")
+    this.allQuestionsService.progress$.subscribe(prog=> {
+      this.progress = prog
+    })
+    this.allQuestionsService.indexToDisable$.subscribe(({index1,correct})=> {
+      this.indexToDisable = {index1, correct}
+    })
     
   }
   
@@ -40,9 +47,15 @@ export class QuestionListComponent implements OnInit{
   }
   
   public emitChosenExercise( item: QuestionModel ) {
-      this.allQuestionsService.click_singleBTN()
-      this.selectedClickedItem = item
-      this.selectedClickedItem.quetionText = item.quetionText 
+    this.allQuestionsService.click_singleBTN()
+    this.selectedClickedItem = item
+    this.selectedClickedItem.quetionText = item.quetionText 
+      // this.disabled = true
+      // this.disableIndex(item)
   }
+
+  // public disableIndex(index : number){
+  //   this.indexToDisable = index
+  // }
     
 }
