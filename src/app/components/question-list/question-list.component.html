@@ -7,12 +7,15 @@
         [class.selected]="item === selectedHoveredItem"
         (click)="emitChosenExercise(item)"
         [class.selectedClickedItem]="item === selectedClickedItem" 
-        [disabled]="i === indexToDisable.index1"
-        [class.disabledCorrect]="i === indexToDisable.index1 && indexToDisable.correct === true"
+        [class.disabledCorrect]="correctIndexes.includes(i)"
+        [class.disabledIncorrect]="incorrectIndexes.includes(i)"
+        [disabled]="correctIndexes.includes(i) || incorrectIndexes.includes(i)"
         >
-        {{item.quetionText}}
+        {{item.quetionText}},{{i}}
     </button>
     <div>your grade so far is: {{progress}} %</div>
 </div>
 <app-big-question [selectedClickedItem]="selectedClickedItem"></app-big-question>
+<!-- [class.disabledCorrect]="i === indexToDisable.index1 && indexToDisable.correct === true" -->
+<!-- [disabled]="i === indexToDisable.index1" -->
 

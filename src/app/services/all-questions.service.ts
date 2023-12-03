@@ -73,7 +73,7 @@ public progresshandler(StudentsAnswer: number){
 
   }else{
     alert("incorrect answer!")
-    // console.log(this.progressPercentCalculation)
+    this.indexToDisableSubject.next({index1: this.index, correct: false}) // emit the index to disable  
   }
 }
 

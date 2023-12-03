@@ -20,8 +20,8 @@ export class QuestionListComponent implements OnInit{
   } 
   public correctAnswer : number | string = "?"
   public progress : number = 0
-  public indexToDisable = {index1: -1, correct: false}
-  // public disabled = false
+  public correctIndexes : number[] = []
+  public incorrectIndexes : number[] = []
 
   public constructor(private allQuestionsService: AllQuestionsService){
 }
@@ -37,9 +37,13 @@ export class QuestionListComponent implements OnInit{
       this.progress = prog
     })
     this.allQuestionsService.indexToDisable$.subscribe(({index1,correct})=> {
-      this.indexToDisable = {index1, correct}
+      if(correct === true){
+        this.correctIndexes.push(index1)
+        console.log(this.correctIndexes)
+      }else{
+        this.incorrectIndexes.push(index1)
+      }
     })
-    
   }
   
   public selectedItem(item : QuestionModel){
@@ -50,12 +54,6 @@ export class QuestionListComponent implements OnInit{
     this.allQuestionsService.click_singleBTN()
     this.selectedClickedItem = item
     this.selectedClickedItem.quetionText = item.quetionText 
-      // this.disabled = true
-      // this.disableIndex(item)
   }
-
-  // public disableIndex(index : number){
-  //   this.indexToDisable = index
-  // }
-    
+ 
 }
