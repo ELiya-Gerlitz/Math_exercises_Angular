@@ -1,10 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-/* body, html{
-background-color: aqua;} */
-body, html{
-    background-image: linear-gradient(rgb(162, 201, 233), rgb(229, 234, 241), rgb(227, 227, 238));
-}
 
+body, html{
+    position: relative;
+}
+body::before {
+content: "";
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: url("https://static.wixstatic.com/media/66515e_70b0be0f561247e7acd1944eda530d9e~mv2_d_3225_3243_s_4_2.gif") no-repeat center center fixed,
+linear-gradient(rgb(162, 201, 233), rgb(229, 234, 241), rgb(227, 227, 238));
+background-size: cover;
+opacity: 0.3; /* Adjust the opacity as needed */
+  z-index: -1; /* Ensure the pseudo-element is behind other content */
+}
 
 .item{
     border: 1px solid rgb(243, 245, 240) ;
@@ -23,10 +34,7 @@ body, html{
     background-image:  linear-gradient( lightblue, rgb(20, 20, 121));
     color: aliceblue;
 }
-/* .selected{
-    background-image:  linear-gradient( lightblue, rgb(20, 20, 121));
-    color: aliceblue;
-} */
+
 p{
     text-align: center;
 }
@@ -34,17 +42,10 @@ p{
     background-image:  linear-gradient( rgb(2, 2, 36), rgb(20, 20, 121));
     color: aliceblue;
 }
-/* .disabled:hover{
-    border: 1px solid rgb(243, 245, 240) ;
-    border-radius: 7px;
-    width: 20%;
-    text-align: center;
-    margin: 10px;
-    padding: 4px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    background-image:  linear-gradient(rgb(245, 245, 250), lightblue);
-    color: inherit;
-
-} */
+p::first-letter{
+    font-size: 72px;
+}
+p::selection{
+    color: red;
+    background-color: yellow;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import QuestionModel from 'src/app/models/QuestionModel';
 import { AllQuestionsService } from 'src/app/services/all-questions.service';
 
@@ -18,6 +18,7 @@ export class QuestionListComponent implements OnInit{
     options: [],
     studentsAnswers: 0
   } 
+
   public correctAnswer : number | string = "?"
   public progress : number = 0
   public correctIndexes : number[] = []
@@ -54,6 +55,6 @@ export class QuestionListComponent implements OnInit{
     this.allQuestionsService.click_singleBTN()
     this.selectedClickedItem = item
     this.selectedClickedItem.quetionText = item.quetionText 
+    this.allQuestionsService.emitListClick() 
   }
- 
 }
